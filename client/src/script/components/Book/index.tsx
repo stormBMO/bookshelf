@@ -1,35 +1,23 @@
-import { useEasybase } from 'easybase-react';
-import React, { useEffect, useState } from 'react'
-import { TBook } from './types';
+import React from 'react'
+import '../../../assets/css/book.css'
 
-const Book = () => {
-  const [easybaseData, setEasybaseData] = useState<unknown[]>([]);
-  const { db } = useEasybase();
-
-  const mounted = async () => {
-    const ebData = await db("BOOK").return().limit(10).all();
-    setEasybaseData(ebData);
-  }
-
-  useEffect(() => {
-    console.log(easybaseData);
-  }, [easybaseData])
-
-  useEffect(() => {
-    mounted();
-  }, [])
+const Book = ({title, name, date} : {
+  title: string;
+  name: string;
+  date: number;
+}) => {
 
   return (
-    <div>
-      {easybaseData.map((book, index)=> {
-        return (
-          <div key={index}>
-            <header>
-              {(book as TBook).name || 'nothing'}
-            </header>
-          </div>
-        )
-      })}
+    <div className='book'>
+      <header>
+        {title}
+      </header>
+      <body>
+        {'It was written by ' + name}
+      </body>
+      <footer>
+        {'Publish date: ' + date}
+      </footer>
     </div>
   )
 }

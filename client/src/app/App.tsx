@@ -1,13 +1,13 @@
 import React from 'react';
 import { EasybaseProvider } from 'easybase-react';
 import ebconfig from './ebconfig';
-import Book from '../script/components/Book';
+import BookShelf from '../script/components/BookShelf';
 
 function App() {
   return (
     <EasybaseProvider ebconfig={ebconfig}>
       <div className='app'>
-        <Book />
+        <BookShelf />
       </div>
     </EasybaseProvider>
   );

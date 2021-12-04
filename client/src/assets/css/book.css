@@ -1,10 +1,11 @@
 .book {
   background-color: aliceblue;
-  border-radius: 1.25;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 30%;
 }
 
 .book header {
