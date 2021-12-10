@@ -3,8 +3,8 @@ import '../../../assets/css/book.css'
 
 const Book = ({title, name, date} : {
   title: string;
-  name: string;
-  date: number;
+  name?: string;
+  date: string;
 }) => {
 
   return (

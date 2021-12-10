@@ -5,10 +5,10 @@ import { TBook } from '../Book/types';
 
 
 const BookShelf = () => {
-
+  const [books, setBooks] = useState<TBook[]>([])
 
   useEffect(() => {
-    axios.get('http://localhost:9898/').then((res: AxiosResponse) => console.log(res.data))
+    axios.get('http://localhost:9898/books').then((res: AxiosResponse) => setBooks(res.data.Books))
   }, [])
 
 
@@ -18,6 +18,11 @@ const BookShelf = () => {
       justifyContent: 'space-around',
       alignItems: 'center'
     }}>
+      {books.map((book, index) => {
+        return (
+          <Book key={index} date={book.edition} title={book.title} />
+        )
+      })}
     </div>
   )
 }

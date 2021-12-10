@@ -1,5 +1,7 @@
 export type TBook = {
   id: number;
-  _key: string;
-  name: string;
+  edition: string;
+  title: string;
+  publishing: string;
+  bookShelf_number: number;
 }
