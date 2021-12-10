@@ -17,7 +17,7 @@ const getBooks = (req, res) => {
     database.query(sqlQuery, (err, result) => {
         if (err) throw err;
 
-        res.set('Access-Control-Allow-Origin', '*')
+        res.set('Access-Control-Allow-Origin', '*');
         res.json({ 'Books': result });
     });
 };

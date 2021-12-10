@@ -7,7 +7,7 @@ const router = new express.Router();
 
 
 router.get('/init', controller.initDatabase);
-router.get('/', controller.getBooks);
+router.get('/books', controller.getBooks);
 router.post('/subscribe',
     body('email').isEmail().normalizeEmail(),
     body('firstname').not().isEmpty().escape(),
