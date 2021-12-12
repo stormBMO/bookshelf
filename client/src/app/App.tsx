@@ -1,14 +1,14 @@
-import React from 'react';
-import BookShelf from '../script/components/BookShelf';
+import { Button, Grid } from '@mui/material'
+import React from 'react'
+import BookShelf from '../script/components/BookShelf'
 
-function App() {
+const App = () => {
   return (
-    <div className='app'>
-      <BookShelf id={1}/>
-    </div>
-  );
+    <Grid container justifyContent='center' alignItems='center' height='100vh'>
+      <Button>Add book</Button>
+      <BookShelf id={1} />
+    </Grid>
+  )
 }
 
-
-
-export default App;
+export default App
