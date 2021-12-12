@@ -4,7 +4,7 @@ import BookShelf from '../script/components/BookShelf';
 function App() {
   return (
     <div className='app'>
-      <BookShelf />
+      <BookShelf id={1}/>
     </div>
   );
 }
