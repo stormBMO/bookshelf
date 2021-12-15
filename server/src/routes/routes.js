@@ -1,18 +1,13 @@
 const express = require('express');
-const controller = require('../controllers/controllers');
+const controllerBook = require('../controllers/books/controllers');
+const controllerNovel = require('../controllers/novels/controllers');
 const {
     body
 } = require('express-validator');
 const router = new express.Router();
 
 
-router.get('/init', controller.initDatabase);
-router.get('/books', controller.getBooks);
-router.post('/subscribe',
-    body('email').isEmail().normalizeEmail(),
-    body('firstname').not().isEmpty().escape(),
-    body('lastname').not().isEmpty().escape(),
-    controller.addSubscriber
-);
+router.get('/books', controllerBook.getBooks);
+router.get('/novels', controllerNovel.getNovel);
 
 module.exports = router;
