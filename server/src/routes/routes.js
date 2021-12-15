@@ -8,6 +8,6 @@ const router = new express.Router();
 
 
 router.get('/books', controllerBook.getBooks);
-router.get('/novels', controllerNovel.getNovel);
+router.get('/novels', controllerNovel.getNovels);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const database = require('../../db');
 
-const getNovel = (req, res) => {
+const getNovels = (req, res) => {
     const sqlQuery = 'SELECT * FROM Novel';
 
     database.query(sqlQuery, (err, result) => {
