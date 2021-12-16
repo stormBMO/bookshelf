@@ -11,6 +11,18 @@ const getNovels = (req, res) => {
     });
 };
 
+const getNovelById = (req, res) => {
+    const sqlQuery = 'SELECT * FROM Novel WHERE id = ' + req.params.novelId;
+
+    database.query(sqlQuery, (err, result) => {
+        if (err) throw err;
+
+        res.set('Access-Control-Allow-Origin', '*');
+        res.json(result);
+    });
+};
+
 module.exports = {
-    getNovel,
+    getNovels,
+    getNovelById,
 }
