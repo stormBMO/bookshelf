@@ -17,7 +17,7 @@ const CustomRatioButton = ({
       sx={{
         background: selected ? colors.primary.main : colors.common.white,
         color: selected ? colors.common.white : colors.primary.main,
-        borderRadius: 1.25,
+        borderRadius: 20,
         border: borders.main,
         boxShadow: selected ? '0px 4px 4px rgba(0, 0, 0, 0.25);' : '',
         ':hover': {

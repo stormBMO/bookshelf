@@ -1,5 +1,6 @@
 import { Grid, Typography } from '@mui/material'
 import React from 'react'
+import { colors } from '../../../app/theme/constant'
 import '../../../assets/css/book.css'
 
 const Book = ({
@@ -18,21 +19,21 @@ const Book = ({
       wrap='nowrap'
       direction='column'
       borderRadius={2}
-      bgcolor='#7FD2FB'
-      alignItems='center'
+      bgcolor={colors.primary.main}
+      alignItems='start'
     >
-      <Grid item>
+      <Grid item >
         <Typography variant='h5' color='initial'>
           {title}
         </Typography>
       </Grid>
       <Grid item>
-        <Typography variant='h5' color='initial'>
-          {'It was written by ' + name}
+        <Typography variant='body1' color='initial'>
+          {name}
         </Typography>
       </Grid>
       <Grid item>
-        <Typography variant='h5' color='initial'>
+        <Typography variant='subtitle2' color='initial'>
           {'Publish year: ' + (new Date(date).getFullYear())}
         </Typography>
       </Grid>

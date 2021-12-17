@@ -1,7 +1,8 @@
 export type TBook = {
   id: number;
+  author: string
   edition: string;
   title: string;
   publishing: string;
-  bookShelf_number: number;
+  bookshelf: number;
 }

@@ -1,28 +1,38 @@
-import { Grid } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import axios, { AxiosResponse } from 'axios'
 import React, { useEffect, useState } from 'react'
+import { TBookshelf } from '../../../app/App'
 import { config } from '../../../config'
 import Book from '../Book'
 import { TBook } from '../Book/types'
 
-const BookShelf = ({ id }: { id: number }) => {
-  const [books, setBooks] = useState<TBook[]>([])
-
-  useEffect(() => {
-    axios
-      .get(config.apiHost + '/books')
-      .then((res: AxiosResponse) => setBooks(res.data.Books))
-  }, [])
+const BookShelf = ({ bookshelf, books }: TBookshelf) => {
 
   return (
-    <Grid container justifyContent='center' alignItems='center' spacing={2}>
-      {books.map((book, index) => {
-        return (
-          <Grid item xs={4}>
-            <Book key={index} date={book.edition} title={book.title} />
-          </Grid>
-        )
-      })}
+    <Grid
+      item
+      container
+      justifyContent='start'
+      alignItems='center'
+      spacing={2}
+    >
+      <Grid item>
+        <Typography variant='h4' color='initial'>
+          {'Bookshelf: ' + bookshelf}
+        </Typography>
+      </Grid>
+
+      <Grid item container spacing={4}>
+        {books.map((book, index) => {
+          console.log(book);
+        
+          return (
+            <Grid item xs={2} key={book.id}>
+              <Book title={book.title} date={book.edition} name={book.author}/>
+            </Grid>
+          )
+        })}
+      </Grid>
     </Grid>
   )
 }
