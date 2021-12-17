@@ -22,7 +22,19 @@ const getNovelById = (req, res) => {
     });
 };
 
+const getNovelByParams = (req, res) => {
+    let sqlQuery = `SELECT * FROM Novel WHERE author LIKE '%${req.body.author || ''}%' AND title LIKE '%${req.body.title || ''}%' AND genre LIKE '%${req.body.genre || ''}%'`;
+
+    database.query(sqlQuery, (err, result) => {
+        if (err) throw err;
+
+        res.set('Access-Control-Allow-Origin', '*');
+        res.json(result);
+    });
+}
+
 module.exports = {
     getNovels,
     getNovelById,
+    getNovelByParams,
 }
