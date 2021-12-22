@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react'
 import { config } from '../config'
 import { TBook } from '../script/components/Book/types'
 import BookShelf from '../script/components/BookShelf'
-import CustomRatioButton from './controls/ratio-button'
-import { TextInput } from './controls/text-input/styled'
+import CustomRatioButton from '../script/controls/ratio-button'
+import { TextInput } from '../script/controls/text-input/styled'
+import { colors } from './theme/constant'
 
 export type TBookshelf = {
   bookshelf: number
@@ -15,13 +16,31 @@ export type TBookshelf = {
 const App = () => {
   const [picked, setPicked] = useState<'book' | 'novel'>('book')
   const [bookshelfs, setBookshelfs] = useState<TBookshelf[]>([])
+  const [title, setTitle] = useState<string>('')
+  const [author, setAuthor] = useState<string>('')
+  const [genre, setGenre] = useState<string>('')
+  const [bsnumber, setBsnumber] = useState<string>('')
+
+  type Params = {
+    title?: string
+    author?: string
+    genre?: string
+    bsnumber?: string
+  }
 
   useEffect(() => {
     axios.get(config.apiHost + '/bookshelfs').then((res: AxiosResponse) => {
-      console.log(res.data.bookshelfs)
       setBookshelfs(res.data)
     })
   }, [])
+
+  const search = () => {
+    axios
+      .get(config.apiHost + '/book', {params: {title, author, genre, bsnumber}})
+      .then((res: AxiosResponse) => {
+        console.log(res.data)
+      })
+  }
 
   return (
     <Grid
@@ -47,18 +66,56 @@ const App = () => {
         </ButtonGroup>
       </Grid>
 
-      <Grid item container xs={12} justifyContent='space-around'>
+      <Grid
+        item
+        container
+        xs={12}
+        justifyContent='space-around'
+        alignItems='center'
+      >
         <Grid item>
-          <TextInput placeholder='по названию' />
+          <TextInput
+            placeholder='по названию'
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+          />
         </Grid>
         <Grid item>
-          <TextInput placeholder='по автору' />
+          <TextInput
+            placeholder='по автору'
+            value={author}
+            onChange={e => setAuthor(e.target.value)}
+          />
         </Grid>
         <Grid item>
-          <TextInput placeholder='по жанру' />
+          <TextInput
+            placeholder='по жанру'
+            value={genre}
+            onChange={e => setGenre(e.target.value)}
+          />
         </Grid>
         <Grid item>
-          <TextInput placeholder='по полке' />
+          <TextInput
+            placeholder='по полке'
+            value={bsnumber}
+            onChange={e => setBsnumber(e.target.value)}
+          />
+        </Grid>
+        <Grid item>
+          <Button
+            sx={{
+              color: 'white',
+              background: colors.primary.main,
+              borderRadius: '100rem',
+              width: 'fit-content',
+              ':hover': {
+                color: colors.primary.main
+              }
+            }}
+            onClick={() => search()}
+          >
+            {`>`}
+          </Button>
         </Grid>
       </Grid>
 

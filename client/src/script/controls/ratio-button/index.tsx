@@ -1,6 +1,6 @@
 import { Button } from '@mui/material'
 import React from 'react'
-import { borders, colors } from '../../theme/constant'
+import { borders, colors } from '../../../app/theme/constant'
 
 const CustomRatioButton = ({
   onClick,

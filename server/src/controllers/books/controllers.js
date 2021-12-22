@@ -26,7 +26,7 @@ const getBookById = (req, res) => {
 }
 
 const getBookByParams = (req, res) => {
-    let sqlQuery = `SELECT * FROM Book WHERE author LIKE '%${req.body.author || ''}%' AND title LIKE '%${req.body.title || ''}%' AND edition LIKE '%${req.body.edition || ''}%'`;
+    let sqlQuery = `SELECT * FROM Book WHERE author LIKE '%${req.query.author || ''}%' AND title LIKE '%${req.query.title || ''}%' AND edition LIKE '%${req.query.edition || ''}%'`;
 
     database.query(sqlQuery, (err, result) => {
         if (err) throw err;
