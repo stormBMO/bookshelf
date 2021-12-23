@@ -42,6 +42,18 @@ const App = () => {
       })
   }
 
+  const handleCount = () => {
+    if (genre.length > 0 && picked == 'book') {
+      axios
+        .get(config.apiHost + '/books-count', {
+          params: {genre}
+        })
+        .then((res: AxiosResponse) => {
+          alert(JSON.stringify(res.data))
+        })
+    }
+  }
+
   return (
     <Grid
       container
@@ -54,7 +66,7 @@ const App = () => {
         overflowX: 'hidden'
       }}
     >
-      <Grid item>
+      <Grid item container>
         <ButtonGroup>
           <CustomRatioButton
             onClick={() => setPicked('book')}
@@ -67,6 +79,9 @@ const App = () => {
             selected={picked === 'novel'}
           />
         </ButtonGroup>
+        <Grid item>
+          <Button onClick={handleCount}>посчитать</Button>
+        </Grid>
       </Grid>
 
       <Grid

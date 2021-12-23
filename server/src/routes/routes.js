@@ -6,6 +6,7 @@ const router = new express.Router();
 
 
 router.get('/books', controllerBook.getBooks);
+router.get('/books-count', controllerBook.getBooksCountByGenre);
 router.get('/book/:bookId', controllerBook.getBookById);
 router.get('/novels', controllerNovel.getNovels);
 router.get('/novel/:novelId', controllerNovel.getNovelById);
