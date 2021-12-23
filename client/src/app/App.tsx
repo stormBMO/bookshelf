@@ -2,16 +2,12 @@ import { Button, ButtonGroup, Grid } from '@mui/material'
 import axios, { AxiosResponse } from 'axios'
 import React, { useEffect, useState } from 'react'
 import { config } from '../config'
-import { TBook } from '../script/components/Book/types'
 import BookShelf from '../script/components/BookShelf'
 import CustomRatioButton from '../script/controls/ratio-button'
 import { TextInput } from '../script/controls/text-input/styled'
+import { TBookshelf, TBook } from '../script/types'
+import { setBookshelfsUtil } from '../script/utils'
 import { colors } from './theme/constant'
-
-export type TBookshelf = {
-  bookshelf: number
-  books: TBook[]
-}
 
 const App = () => {
   const [picked, setPicked] = useState<'book' | 'novel'>('book')
@@ -29,16 +25,20 @@ const App = () => {
   }
 
   useEffect(() => {
-    axios.get(config.apiHost + '/bookshelfs').then((res: AxiosResponse) => {
-      setBookshelfs(res.data)
+    axios.get(config.apiHost + '/books').then((res: AxiosResponse) => {
+      setBookshelfs(setBookshelfsUtil(res.data as TBook[]))
     })
   }, [])
 
   const search = () => {
+    const urlSubPath = picked == 'book' ? '/book' : '/book-by-novel'
+    console.log(urlSubPath)
     axios
-      .get(config.apiHost + '/book', {params: {title, author, genre, bsnumber}})
+      .get(config.apiHost + urlSubPath, {
+        params: { title, author, genre, bsnumber }
+      })
       .then((res: AxiosResponse) => {
-        console.log(res.data)
+        setBookshelfs(setBookshelfsUtil(res.data as TBook[]))
       })
   }
 
@@ -50,6 +50,9 @@ const App = () => {
       alignItems='center'
       justifyContent='center'
       spacing={3}
+      sx={{
+        overflowX: 'hidden'
+      }}
     >
       <Grid item>
         <ButtonGroup>

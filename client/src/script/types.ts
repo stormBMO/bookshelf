@@ -6,3 +6,8 @@ export type TBook = {
   publishing: string;
   bookshelf: number;
 }
+
+export type TBookshelf = {
+  bookshelf: number
+  books: TBook[]
+}
