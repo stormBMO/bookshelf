@@ -1,8 +1,10 @@
-import { Button, ButtonGroup, Grid } from '@mui/material'
+import { Button, ButtonGroup, Grid, Stack, Typography } from '@mui/material'
 import axios, { AxiosResponse } from 'axios'
 import React, { useEffect, useState } from 'react'
 import { config } from '../config'
 import BookShelf from '../script/components/BookShelf'
+import { AntSwitch } from '../script/controls/ant-switch'
+import CustomButton from '../script/controls/custom-button'
 import CustomRatioButton from '../script/controls/ratio-button'
 import { TextInput } from '../script/controls/text-input/styled'
 import { TBookshelf, TBook } from '../script/types'
@@ -11,18 +13,12 @@ import { colors } from './theme/constant'
 
 const App = () => {
   const [picked, setPicked] = useState<'book' | 'novel'>('book')
+  const [conc, setConc] = useState<boolean>(false)
   const [bookshelfs, setBookshelfs] = useState<TBookshelf[]>([])
   const [title, setTitle] = useState<string>('')
   const [author, setAuthor] = useState<string>('')
   const [genre, setGenre] = useState<string>('')
   const [bsnumber, setBsnumber] = useState<string>('')
-
-  type Params = {
-    title?: string
-    author?: string
-    genre?: string
-    bsnumber?: string
-  }
 
   useEffect(() => {
     axios.get(config.apiHost + '/books').then((res: AxiosResponse) => {
@@ -35,7 +31,7 @@ const App = () => {
     console.log(urlSubPath)
     axios
       .get(config.apiHost + urlSubPath, {
-        params: { title, author, genre, bsnumber }
+        params: { title, author, genre, bookshelf: bsnumber, conc }
       })
       .then((res: AxiosResponse) => {
         setBookshelfs(setBookshelfsUtil(res.data as TBook[]))
@@ -43,15 +39,17 @@ const App = () => {
   }
 
   const handleCount = () => {
-    if (genre.length > 0 && picked == 'book') {
-      axios
-        .get(config.apiHost + '/books-count', {
-          params: {genre}
-        })
-        .then((res: AxiosResponse) => {
-          alert(JSON.stringify(res.data))
-        })
-    }
+    axios
+      .get(config.apiHost + '/books-count', {
+        params: { genre, author, conc }
+      })
+      .then((res: AxiosResponse) => {
+        alert('Количество полученных произведений: ' + res.data[0].Amount)
+      })
+  }
+
+  const handleSwitchChange = () => {
+    setConc(!conc)
   }
 
   return (
@@ -66,24 +64,42 @@ const App = () => {
         overflowX: 'hidden'
       }}
     >
-      <Grid item container>
-        <ButtonGroup>
-          <CustomRatioButton
-            onClick={() => setPicked('book')}
-            text={'Книга'}
-            selected={picked === 'book'}
-          />
-          <CustomRatioButton
-            onClick={() => setPicked('novel')}
-            text={'Произведение'}
-            selected={picked === 'novel'}
-          />
-        </ButtonGroup>
+      <Grid
+        item
+        container
+        xs={12}
+        justifyContent='space-between'
+        alignItems='center'
+      >
+        <Grid item pl={6}>
+          <Stack direction='row' spacing={1} alignItems='center'>
+            <Typography>OR</Typography>
+            <AntSwitch
+              onChange={handleSwitchChange}
+              defaultChecked
+              inputProps={{ 'aria-label': 'ant design' }}
+            />
+            <Typography>AND</Typography>
+          </Stack>
+        </Grid>
         <Grid item>
-          <Button onClick={handleCount}>посчитать</Button>
+          <ButtonGroup>
+            <CustomRatioButton
+              onClick={() => setPicked('book')}
+              text={'Книга'}
+              selected={picked === 'book'}
+            />
+            <CustomRatioButton
+              onClick={() => setPicked('novel')}
+              text={'Произведение'}
+              selected={picked === 'novel'}
+            />
+          </ButtonGroup>
+        </Grid>
+        <Grid item pr={6}>
+          <CustomButton text='Посчитать' onClick={handleCount} />
         </Grid>
       </Grid>
-
       <Grid
         item
         container
@@ -120,20 +136,7 @@ const App = () => {
           />
         </Grid>
         <Grid item>
-          <Button
-            sx={{
-              color: 'white',
-              background: colors.primary.main,
-              borderRadius: '100rem',
-              width: 'fit-content',
-              ':hover': {
-                color: colors.primary.main
-              }
-            }}
-            onClick={() => search()}
-          >
-            {`>`}
-          </Button>
+          <CustomButton text='>' onClick={search} />
         </Grid>
       </Grid>
 

@@ -26,7 +26,7 @@ const BookShelf = ({ bookshelf, books }: TBookshelf) => {
         {books.map((book, index) => {
           return (
             <Grid item xs={2} key={book.id}>
-              <Book title={book.title} date={book.edition} name={book.author}/>
+              <Book title={book.title} date={book.edition} author={book.author} bookshelf={bookshelf}/>
             </Grid>
           )
         })}
