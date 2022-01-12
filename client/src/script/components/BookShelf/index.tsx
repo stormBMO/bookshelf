@@ -18,7 +18,7 @@ const BookShelf = ({ bookshelf, books }: TBookshelf) => {
     >
       <Grid item>
         <Typography variant='h4' color='initial'>
-          {'Bookshelf: ' + bookshelf}
+          {'Книжная полка: ' + bookshelf}
         </Typography>
       </Grid>
 

@@ -73,9 +73,11 @@ const getBooksCountByGenre = (req, res) => {
     SELECT COUNT(*) as Amount FROM Novel 
     WHERE INSTR(author, '${req.query.author || ''}') > 0 
     ${req.query.conc == 'true' ? 'OR' : 'AND'}
-    INSTR(title, '${req.query.title || ''}') > 0
+    INSTR(genre, '${req.query.genre || ''}') > 0
     LIMIT 0, 100;
     `;
+
+
 
     database.query(sqlQuery, (err, result) => {
         if (err) throw err;
@@ -86,7 +88,8 @@ const getBooksCountByGenre = (req, res) => {
 }
 
 const getBookByParams = (req, res) => {
-
+    
+    // Защита от ввода "не цифры" в поле "на полке"
     if (req.query.bookshelf.length > 0 && isNaN(parseInt(req.query.bookshelf))) {
         return
     }

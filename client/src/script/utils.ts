@@ -14,7 +14,6 @@ export const setBookshelfsUtil = (books: TBook[]) => {
         bs.books.push(book);
       } 
     })
-    // bshelfs[bshelfs.indexOf(bshelfs.filter((bs) => bs.bookshelf == book.bookshelf)[0])].books.push(book)
   })
   return bshelfs;
 }

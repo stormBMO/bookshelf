@@ -65,7 +65,7 @@ const Book = ({
       </Grid>
       <Grid item alignItems='end' pb={3}>
         <Typography variant='subtitle2' color='initial'>
-          {'Publish year: ' + new Date(date).getFullYear()}
+          {'Год выпуска книги: ' + new Date(date).getFullYear()}
         </Typography>
       </Grid>
       <Modal
@@ -105,7 +105,7 @@ const Book = ({
                 {`Издание: ` + bookData[0].publishing}
               </Typography>
               <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-                {`Количество книг в библеотеке: ` + bookData.length}
+                {`Количество экземпляров этой книги: ` + bookData.length}
               </Typography>
               <Typography id='modal-modal-description' sx={{ mt: 2 }}>
                 {bookData.length == 1
