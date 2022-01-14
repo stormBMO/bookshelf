@@ -26,8 +26,6 @@ const getBookById = (req, res) => {
 }
 
 const getBooksByNovel = (req, res) => {
-    // const sqlQuery = `SELECT DISTINCT book.* FROM Book as book JOIN BookNovelLink AS link ON book.id = link.id_book JOIN Novel as novel ON link.id_novel = novel.id WHERE novel.title LIKE '%${req.query.title}%' AND novel.genre LIKE '%${req.query.genre}%' AND novel.genre LIKE '%${req.query.author}%' ORDER BY book.bookshelf`;
-
     const sqlQuery = `SELECT DISTINCT b.* 
     FROM Novel n JOIN BookNovelLink l 
     on n.id = l.id_novel 
@@ -76,8 +74,6 @@ const getBooksCountByGenre = (req, res) => {
     INSTR(genre, '${req.query.genre || ''}') > 0
     LIMIT 0, 100;
     `;
-
-
 
     database.query(sqlQuery, (err, result) => {
         if (err) throw err;

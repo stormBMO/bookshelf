@@ -11,20 +11,10 @@ const initDatabase = (req, res) => {
 };
 
 const getAmountOfBookshelfs = (req, res) => {
-  // const sqlQuery = 'SELECT * FROM Book'
-  // const amount = []
-
   const sqlQuery = 'SELECT DISTINCT bookshelf FROM Book'
 
   database.query(sqlQuery, (err, result) => {
     if (err) throw err;
-
-    // result.forEach((book) => {
-    //   if (!amount.includes(book.bookshelf)) {
-    //     amount.push(book.bookshelf);
-    //   }
-    // })
-    // res.send(amount)
     res.send(result);
   });
 }
